@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  # Service item-app
+  item-app:
+    image: ghcr.io/danrynr/item-app:v1 # image from github packages
+    # wait for item-db to be ready
+    depends_on:
+      - item-db
+    # Restart policy. Auto restart if the container stops
+    restart: always
+    # Running on host port 80
+    ports:
+      - 80:8080
+    # Working directory
+    working_dir: /app 
+    # Mount the app directory into the container
+    volumes: 
+      - .:/app
+
+  # Service item-db
+  item-db:
+    # mongo:3 image from docker hub
+    image: mongo:3 
+    # Restart policy. Auto restart if the container stops
+    restart: always
+    # Mount the volume
+    volumes: 
+      - app-db:/data/db 
+
+# Volume app-db
+volumes:
+  app-db:
