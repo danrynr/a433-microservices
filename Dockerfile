@@ -1,5 +1,5 @@
-# Use nodejs version 14 alpine
-FROM node:14.21.1-alpine3.16
+# Use nodejs version 14
+FROM node:14
 
 # Set the working directory to /app
 WORKDIR /app
