@@ -8,7 +8,8 @@ WORKDIR /app
 COPY . .
 
 # Set the environment variable and database host
-ENV NODE_ENV=production DB_HOST=item-db
+ENV NODE_ENV=production \
+    DB_HOST=item-db
 
 # Install any needed packages specified in package.json
 RUN npm install --production --unsafe-perm && npm run build
