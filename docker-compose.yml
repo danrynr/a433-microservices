@@ -3,7 +3,8 @@ version: "3.7"
 services:
   # Service item-app
   item-app:
-    image: ghcr.io/danrynr/item-app:v1 # image from github packages
+    # image from github packages
+    image: ghcr.io/danrynr/item-app:v1 
     # wait for item-db to be ready
     depends_on:
       - item-db
