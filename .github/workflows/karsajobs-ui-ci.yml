@@ -1,6 +1,9 @@
 name: CI Workflow (karsajob-ui)
 
-on: [push]
+on: 
+  push:
+    branches:
+    - karsajobs-ui
 
 jobs:
   lint-dockerfile:
