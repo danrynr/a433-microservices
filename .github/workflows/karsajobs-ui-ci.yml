@@ -1,0 +1,25 @@
+name: CI Workflow (karsajob-ui)
+
+on: [push]
+
+jobs:
+  lint-dockerfile:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install hadolint
+      run: |
+        curl -fL https://github.com/hadolint/hadolint/releases/download/v1.21.1/hadolint-Linux-x86_64 -o /usr/local/bin/hadolint
+        chmod +x /usr/local/bin/hadolint
+    - name: Lint Dockerfile
+      run: hadolint Dockerfile
+  
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and push image
+      run: |
+        docker build -t karsajobs-ui:latest .
+        docker push karsajobs-ui:latest
+        
