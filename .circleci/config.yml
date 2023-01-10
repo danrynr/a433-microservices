@@ -8,13 +8,11 @@ executors:
 jobs:
   lint-dockerfile:
     executor: docker
-    docker:
-      - image: hadolint/hadolint:latest
     steps:
       - checkout
       - setup_remote_docker:
-          docker_layer_caching: false
-      - run: hadolint Dockerfile
+          docker_layer_caching: true
+      - run: docker run --rm --interactive hadolint/hadolint < Dockerfile
 
   test-app:
     docker:
