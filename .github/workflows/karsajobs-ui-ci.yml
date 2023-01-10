@@ -23,6 +23,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build and push image
       run: |
-        docker build -t karsajobs-ui:latest .
-        docker push karsajobs-ui:latest
+        pwd
+    
+        # docker build -t karsajobs-ui:latest .
+        # docker push karsajobs-ui:latest
         
