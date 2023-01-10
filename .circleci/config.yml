@@ -1,0 +1,33 @@
+version: 2.1
+
+jobs:
+  lint-dockerfile:
+    docker:
+      - image: hadolint/hadolint:latest
+    steps:
+      - checkout
+      - run: hadolint Dockerfile
+
+  test-app:
+    docker:
+      - image: golang:latest
+    steps:
+      - run: go get -v -t -d ./...
+      - run: go test -v -short --count=1 $(go list ./...)
+
+  build-app-karsajobs:
+    docker:
+      - image: golang:latest
+    steps:
+      - run: go get -v -t -d ./...
+      - run: CGO_ENABLED=0 go build -a -installsuffix cgo -ldflags="-s" -o app
+      - run: docker build -t karsajobs:latest .
+      - run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - run: docker push karsajobs:latest
+
+workflows:
+  circleci-karsajobs:
+    jobs:
+      - lint-dockerfile
+      - test-app
+      - build-app-karsajobs
