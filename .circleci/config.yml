@@ -19,7 +19,7 @@ jobs:
     docker:
       - image: golang:latest
     steps:
-      - run: go get -v -t -d ./...
+      - run: go mod download
       - run: CGO_ENABLED=0 go build -a -installsuffix cgo -ldflags="-s" -o app
       - run: docker build -t karsajobs:latest .
       - run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
