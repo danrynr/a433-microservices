@@ -18,14 +18,14 @@ jobs:
     docker:
       - image: circleci/golang:1.15
     steps:
-      - run: go mod download
+      - run: go mod download -v -t -d ./...
       - run: go test -v -short --count=1 $(go list ./...)
 
   build-app-karsajobs:
     docker:
       - image: circleci/golang:1.15
     steps:
-      - run: go mod download
+      - run: go mod download -v -t -d ./...
       - run: CGO_ENABLED=0 go build -a -installsuffix cgo -ldflags="-s" -o app
       - run: docker build -t karsajobs:latest .
       - run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
