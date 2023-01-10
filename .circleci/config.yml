@@ -18,7 +18,7 @@ jobs:
     docker:
       - image: circleci/golang:1.15
     steps:
-      - run: go mod download -v -t -d ./...
+      - run: go mod download -v -d ./...
       - run: go test -v -short --count=1 $(go list ./...)
 
   build-app-karsajobs:
